@@ -1,5 +1,6 @@
-import app from "../Backend/src/app.js"
+import app from "./src/app.js"
 
 app.listen(3000,()=>{
-    console.log("Server is running on 3000 port")
+    console.log("Server is running on 3000")
 })
+

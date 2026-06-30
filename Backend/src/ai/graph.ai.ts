@@ -1,6 +1,6 @@
 import { StateGraph, StateSchema, START, END, type GraphNode, type CompiledStateGraph } from "@langchain/langgraph"
 import z from "zod";
-import { mistralAIModel, cohereModel, geminiModel } from "../service/models.service.js";
+import { mistralAIModel, cohereModel, geminiModel } from "./model.ai.js";
 import { createAgent, HumanMessage, providerStrategy } from "langchain";
 
 const state = new StateSchema({
@@ -14,7 +14,6 @@ const state = new StateSchema({
         solution_2_reasoning: z.string().default(""),
     })
 })
-
 
 const solutionNode: GraphNode<typeof state> = async (state) => {
 
@@ -53,8 +52,7 @@ const judgeNode: GraphNode<typeof state> = async (state) => {
                 `)
         ]
     })
-
-    const {
+       const {
         solution_1_score,
         solution_2_score,
         solution_1_reasoning,
@@ -71,7 +69,6 @@ const judgeNode: GraphNode<typeof state> = async (state) => {
     }
 
 }
-
 const graph = new StateGraph(state)
     .addNode("solution", solutionNode)
     .addNode("judge_node", judgeNode)
@@ -88,4 +85,4 @@ export default async function (problem: string) {
 
     return result
 
-}
+} 
